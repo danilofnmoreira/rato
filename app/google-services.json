@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "941106678524",
+    "project_id": "rato-38e2c",
+    "storage_bucket": "rato-38e2c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941106678524:android:3068604e25a407b701a579",
+        "android_client_info": {
+          "package_name": "com.danilove.rato"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "941106678524-sjpvotk1qtv5vq61e1v6tr0p1gvjglqj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.danilove.rato",
+            "certificate_hash": "e28b0536f0fe268055a297e2281d936431c4ec31"
+          }
+        },
+        {
+          "client_id": "941106678524-qio2io8od0aoumevr3aru0etil9m34so.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrXLg62Cdt7UjmE-5Gq4JWL1LNvgVGMSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "941106678524-qio2io8od0aoumevr3aru0etil9m34so.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
