@@ -1,53 +1,80 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="20dp"
-    tools:context=".LoginActivity">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailInput"
+    <ScrollView
+        android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <LinearLayout
+            android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="email"
-            android:inputType="textEmailAddress" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:padding="20dp">
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp">
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/prompt_email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="senha"
-            android:inputType="numberPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/registerLink"
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:layout_marginTop="20dp"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                />
+
+            <Button
+                android:id="@+id/email_sign_in_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/sign_in"
+                android:textStyle="bold"
+                android:background="@drawable/theme_button"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/relLayout1">
+
+
+                <TextView android:id="@+id/link_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/register"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:textColor="@color/linkBlue"
+                    android:layout_centerHorizontal="true"/>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginBottom="20dp"
-        android:text="cadastre-se"
-        android:textSize="20sp" />
+        android:id="@+id/progressBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:visibility="invisible"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="login" />
-
-</LinearLayout>
+</RelativeLayout>
