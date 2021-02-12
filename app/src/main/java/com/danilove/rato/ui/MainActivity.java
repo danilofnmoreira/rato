@@ -42,6 +42,23 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 
+//https://www.youtube.com/watch?v=ari3iD-3q8c
+//https://www.youtube.com/watch?v=ifoVBdtXsv0
+//https://www.youtube.com/watch?v=_xUcYfbtfsI
+//https://www.youtube.com/watch?v=1f4b2-Y_q2A&list=PLgCYzUzKIBE-SZUrVOsbYMzH7tPigT3gi&index=4
+//https://github.com/danilofnmoreira/Google-Maps-2018
+//https://www.youtube.com/results?search_query=android+gps
+//https://www.youtube.com/results?search_query=android+geolocation+firebase
+//https://www.youtube.com/results?search_query=android+geolocation
+//https://www.youtube.com/results?search_query=android+maps
+//https://www.youtube.com/watch?v=7TIAT5zlrmc&t=3s
+//https://www.youtube.com/watch?v=eiexkzCI8m8
+//https://www.youtube.com/watch?v=pjFcJ6EB8Dg
+//https://firebase.google.com/s/results?q=locations
+//https://console.firebase.google.com/project/rato-38e2c/authentication/users
+
+
+
 public class MainActivity extends AppCompatActivity implements
         View.OnClickListener,
         ChatroomRecyclerAdapter.ChatroomRecyclerClickListener
@@ -59,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements
     private RecyclerView mChatroomRecyclerView;
     private ListenerRegistration mChatroomEventListener;
     private FirebaseFirestore mDb;
+    private boolean mLocationPermissionGranted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
