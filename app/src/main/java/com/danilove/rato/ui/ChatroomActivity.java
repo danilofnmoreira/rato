@@ -19,6 +19,7 @@ import com.danilove.rato.adapters.ChatMessageRecyclerAdapter;
 import com.danilove.rato.models.ChatMessage;
 import com.danilove.rato.models.Chatroom;
 import com.danilove.rato.models.User;
+import com.danilove.rato.models.UserLocation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -56,6 +57,7 @@ public class ChatroomActivity extends AppCompatActivity implements
     private Set<String> mMessageIds = new HashSet<>();
     private ArrayList<User> mUserList = new ArrayList<>();
     private UserListFragment mUserListFragment;
+    private ArrayList<UserLocation> mUsersLocations = new ArrayList<>();
 
 
     @Override
@@ -134,12 +136,27 @@ public class ChatroomActivity extends AppCompatActivity implements
                             for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                                 User user = doc.toObject(User.class);
                                 mUserList.add(user);
+                                getUserLocation(user);
                             }
 
                             Log.d(TAG, "onEvent: user list size: " + mUserList.size());
                         }
                     }
                 });
+    }
+
+    private void getUserLocation(User user) {
+
+        DocumentReference locationRef = mDb.collection(getString(R.string.collection_user_locations))
+                .document(user.getUser_id());
+
+        locationRef.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                if(task.getResult().toObject(UserLocation.class) != null) {
+                    mUsersLocations.add(task.getResult().toObject(UserLocation.class));
+                }
+            }
+        });
     }
 
     private void initChatroomRecyclerView(){
@@ -212,6 +229,7 @@ public class ChatroomActivity extends AppCompatActivity implements
         UserListFragment fragment = UserListFragment.newInstance();
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(getString(R.string.intent_user_list), mUserList);
+        bundle.putParcelableArrayList(getString(R.string.intent_user_locations), mUsersLocations);
         fragment.setArguments(bundle);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

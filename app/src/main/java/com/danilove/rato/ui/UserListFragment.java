@@ -3,6 +3,7 @@ package com.danilove.rato.ui;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.danilove.rato.R;
 import com.danilove.rato.adapters.UserRecyclerAdapter;
 import com.danilove.rato.models.User;
+import com.danilove.rato.models.UserLocation;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -38,6 +40,7 @@ public class UserListFragment extends Fragment implements OnMapReadyCallback {
 
     //vars
     private ArrayList<User> mUserList = new ArrayList<>();
+    private ArrayList<UserLocation> mUsersLocations = new ArrayList<>();
     private UserRecyclerAdapter mUserRecyclerAdapter;
 
 
@@ -50,6 +53,8 @@ public class UserListFragment extends Fragment implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mUserList = getArguments().getParcelableArrayList(getString(R.string.intent_user_list));
+
+            mUsersLocations = getArguments().getParcelableArrayList(getString(R.string.intent_user_locations));
         }
     }
 
@@ -62,6 +67,13 @@ public class UserListFragment extends Fragment implements OnMapReadyCallback {
         initUserListRecyclerView();
 
         initGoogleMap(savedInstanceState);
+
+        for(UserLocation userLocation : mUsersLocations) {
+            Log.d(TAG, "onCreateView: user: " + userLocation.getUser().getUsername());
+            Log.d(TAG, "onCreateView: geopint: " + userLocation.getGeo_point().toString());
+
+
+        }
 
         return view;
     }
