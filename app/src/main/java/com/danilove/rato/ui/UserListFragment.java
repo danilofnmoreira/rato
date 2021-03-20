@@ -19,11 +19,14 @@ import com.danilove.rato.R;
 import com.danilove.rato.adapters.UserRecyclerAdapter;
 import com.danilove.rato.models.User;
 import com.danilove.rato.models.UserLocation;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -42,6 +45,9 @@ public class UserListFragment extends Fragment implements OnMapReadyCallback {
     private ArrayList<User> mUserList = new ArrayList<>();
     private ArrayList<UserLocation> mUsersLocations = new ArrayList<>();
     private UserRecyclerAdapter mUserRecyclerAdapter;
+    private GoogleMap mGoogleMap;
+    private LatLngBounds mMapBoundary;
+    private UserLocation mUserPosition;
 
 
     public static UserListFragment newInstance() {
@@ -68,14 +74,34 @@ public class UserListFragment extends Fragment implements OnMapReadyCallback {
 
         initGoogleMap(savedInstanceState);
 
-        for(UserLocation userLocation : mUsersLocations) {
-            Log.d(TAG, "onCreateView: user: " + userLocation.getUser().getUsername());
-            Log.d(TAG, "onCreateView: geopint: " + userLocation.getGeo_point().toString());
-
-
-        }
+        setUserPosition();
 
         return view;
+    }
+
+    private void setCameraView() {
+
+        // overral map view window: 0.2 * 0.2 = 0.04
+        double bottomBoundary = mUserPosition.getGeo_point().getLatitude() - .1;
+        double leftBoundary = mUserPosition.getGeo_point().getLongitude() - .1;
+        double topBoundary = mUserPosition.getGeo_point().getLatitude() + .1;
+        double rightBoundary = mUserPosition.getGeo_point().getLongitude() + .1;
+
+        mMapBoundary = new LatLngBounds(
+                new LatLng(bottomBoundary, leftBoundary),
+                new LatLng(topBoundary, rightBoundary)
+        );
+
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(mMapBoundary, 0));
+    }
+
+    private void setUserPosition() {
+        for(UserLocation userLocation : mUsersLocations) {
+            if(userLocation.getUser().getUser_id().equals(FirebaseAuth.getInstance().getUid())) {
+                mUserPosition = userLocation;
+                break;
+            }
+        }
     }
 
     private void initGoogleMap(Bundle savedInstanceState) {
@@ -139,6 +165,8 @@ public class UserListFragment extends Fragment implements OnMapReadyCallback {
             return;
         }
         map.setMyLocationEnabled(true);
+        mGoogleMap = map;
+        setCameraView();
     }
 
     @Override
